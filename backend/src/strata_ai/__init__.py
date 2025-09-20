@@ -1,2 +1,5 @@
-def main() -> None:
-    print("Hello from strata-ai!")
+from dotenv import load_dotenv
+from fastapi import APIRouter, FastAPI
+
+load_dotenv()
+app = FastAPI()

@@ -15,9 +15,29 @@ dependencies = [
     "sqlalchemy[asyncio]==2.0.43",
 ]
 
+[dependency-groups]
+dev = [
+    "aiosqlite==0.21.0",
+    "pyright==1.1.405",
+    "pytest==8.4.2",
+    "pytest-asyncio==1.2.0",
+    "strata-ai",
+]
+
 [project.scripts]
 strata-ai = "strata_ai:main"
 
 [build-system]
 requires = ["uv_build>=0.8.18,<0.9.0"]
 build-backend = "uv_build"
+
+[tool.pyright]
+venvPath = '.'
+venv = ".venv"
+exclude = ['.venv']
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+
+[tool.uv.workspace]
+members = ["."]
