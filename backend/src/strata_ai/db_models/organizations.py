@@ -21,7 +21,7 @@ class Organization(Base):
     id: Mapped[uuid.UUID] = mapped_column(Uuid, primary_key=True, default=uuid.uuid4)
     name: Mapped[str] = mapped_column(String, unique=True, nullable=False)
     kind: Mapped[OrganizationKind] = mapped_column(
-        SqlEnum(OrganizationKind, name="organization_kind"), nullable=False
+        SqlEnum(OrganizationKind), nullable=False
     )
 
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
