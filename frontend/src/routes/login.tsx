@@ -7,9 +7,9 @@ export const Route = createFileRoute("/login")({
 
 function RouteComponent() {
   return (
-    <div className="h-full overflow-clip grid grid-cols-10 gap-4">
+    <div className="h-full overflow-clip grid grid-cols-10">
       <img src={LeftSideImage} className="col-span-4" />
-      <div>Hello "/login"</div>
+      <div className="col-span-6 bg-amber-500">Card placeholder.</div>
     </div>
   );
 }
