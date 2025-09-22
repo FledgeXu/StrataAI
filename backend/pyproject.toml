@@ -10,10 +10,14 @@ dependencies = [
     "asyncpg==0.30.0",
     "fastapi[all]==0.116.2",
     "greenlet==3.2.4",
+    "psycopg2-binary>=2.9.10",
     "python-dotenv==1.1.1",
     "returns==0.26.0",
     "sqlalchemy[asyncio]==2.0.43",
 ]
+
+[tool.uv.sources]
+strata-ai = { workspace = true }
 
 [dependency-groups]
 dev = [
@@ -38,6 +42,3 @@ exclude = ['.venv']
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
-
-[tool.uv.workspace]
-members = ["."]
