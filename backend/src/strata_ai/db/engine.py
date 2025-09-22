@@ -2,7 +2,7 @@ from typing import AsyncGenerator
 
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 
-from strata_ai.config import Config
+from strata_ai.core.config import Config
 
 engine = create_async_engine(
     Config.DATABASE_URL,

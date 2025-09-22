@@ -6,7 +6,7 @@ from sqlalchemy import Boolean, DateTime, String, Uuid, func
 from sqlalchemy import Enum as SqlEnum
 from sqlalchemy.orm import Mapped, mapped_column
 
-from strata_ai.db_models.base import Base
+from strata_ai.models.base import Base
 
 
 class OrganizationKind(Enum):
