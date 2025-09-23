@@ -7,3 +7,13 @@ class Config:
         "DATABASE_URL",
         "postgresql+asyncpg://postgres:secret@localhost:5432/postgres",
     )
+    SECRET = os.getenv(
+        "SECRET",
+        "SECRET",
+    )
+    ACCESS_TOKEN_LIFETIME_SECONDS = int(
+        os.getenv(
+            "ACCESS_TOKEN_LIFETIME_SECONDS",
+            "3600",
+        )
+    )
