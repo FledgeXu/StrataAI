@@ -11,7 +11,7 @@ from strata_ai.core.config import Config
 from strata_ai.models.user import User
 from strata_ai.services.user_service import get_user_manager
 
-bearer_transport = BearerTransport(tokenUrl="auth/jwt/login")
+bearer_transport = BearerTransport(tokenUrl="v1/auth/jwt/login")
 
 
 def get_jwt_strategy() -> JWTStrategy:
