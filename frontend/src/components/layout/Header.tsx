@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 
 export function Header() {
     return (
-        <div className="w-full h-14 flex justify-between items-center p-4">
+        <div className="w-full h-14 flex justify-between items-center py-4">
             <div className="h-full w-fit flex items-center space-x-1">
                 <Button variant={"ghost"}>
                     <PanelLeft />
