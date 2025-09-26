@@ -1,10 +1,10 @@
 import { PanelLeft, User } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
-import { useBoundStore } from "@/stores/useBoundStore";
+import { useSidebar } from "@/components/ui/sidebar";
 
 export function Header() {
-    const toggleSidebar = useBoundStore((state) => state.toggleSidebar);
+    const { toggleSidebar } = useSidebar();
     return (
         <div className="w-full h-14 flex justify-between items-center py-4">
             <div className="h-full w-fit flex items-center space-x-1">
