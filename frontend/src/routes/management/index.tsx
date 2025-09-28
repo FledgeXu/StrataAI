@@ -1,5 +1,5 @@
-import { Header } from "@/components/layout/Header";
 import { createFileRoute } from "@tanstack/react-router";
+import { Header } from "@/components/layout/Header";
 import {
   Sidebar,
   SidebarContent,
@@ -30,7 +30,7 @@ const items = [
   },
 ];
 
-export const Route = createFileRoute("/management")({
+export const Route = createFileRoute("/management/")({
   component: RouteComponent,
 });
 
