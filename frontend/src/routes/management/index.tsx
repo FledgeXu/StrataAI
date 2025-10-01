@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Outlet, Link } from "@tanstack/react-router";
 import { Header } from "@/components/layout/Header";
 import {
   Sidebar,
@@ -14,19 +14,13 @@ import {
 } from "@/components/ui/sidebar";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { Building2 } from "lucide-react";
-
-import { User } from "lucide-react";
+import { Route as organizationRouter } from "@/routes/management/organization";
 
 const items = [
   {
     title: "Organization",
-    url: "#",
+    router: organizationRouter,
     icon: Building2,
-  },
-  {
-    title: "User",
-    url: "#",
-    icon: User,
   },
 ];
 
@@ -47,10 +41,10 @@ function RouteComponent() {
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <a href={item.url}>
+                    <Link to={item.router.to}>
                       <item.icon />
                       <span>{item.title}</span>
-                    </a>
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
@@ -62,7 +56,7 @@ function RouteComponent() {
       </Sidebar>
       <div className="w-full">
         <Header />
-        <div>Hello "/management"!</div>
+        <Outlet />
       </div>
     </SidebarProvider>
   );

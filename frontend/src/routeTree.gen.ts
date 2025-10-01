@@ -13,6 +13,7 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ManagementIndexRouteImport } from './routes/management/index'
+import { Route as ManagementOrganizationRouteImport } from './routes/management/organization'
 
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
@@ -34,17 +35,24 @@ const ManagementIndexRoute = ManagementIndexRouteImport.update({
   path: '/management/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ManagementOrganizationRoute = ManagementOrganizationRouteImport.update({
+  id: '/management/organization',
+  path: '/management/organization',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/login': typeof LoginRoute
+  '/management/organization': typeof ManagementOrganizationRoute
   '/management': typeof ManagementIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/login': typeof LoginRoute
+  '/management/organization': typeof ManagementOrganizationRoute
   '/management': typeof ManagementIndexRoute
 }
 export interface FileRoutesById {
@@ -52,20 +60,33 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/login': typeof LoginRoute
+  '/management/organization': typeof ManagementOrganizationRoute
   '/management/': typeof ManagementIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/login' | '/management'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/login'
+    | '/management/organization'
+    | '/management'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/login' | '/management'
-  id: '__root__' | '/' | '/about' | '/login' | '/management/'
+  to: '/' | '/about' | '/login' | '/management/organization' | '/management'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/login'
+    | '/management/organization'
+    | '/management/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   LoginRoute: typeof LoginRoute
+  ManagementOrganizationRoute: typeof ManagementOrganizationRoute
   ManagementIndexRoute: typeof ManagementIndexRoute
 }
 
@@ -99,6 +120,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ManagementIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/management/organization': {
+      id: '/management/organization'
+      path: '/management/organization'
+      fullPath: '/management/organization'
+      preLoaderRoute: typeof ManagementOrganizationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -106,6 +134,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   LoginRoute: LoginRoute,
+  ManagementOrganizationRoute: ManagementOrganizationRoute,
   ManagementIndexRoute: ManagementIndexRoute,
 }
 export const routeTree = rootRouteImport
