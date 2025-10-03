@@ -24,6 +24,11 @@ const columns: ColumnDef<Organization>[] = [
   {
     accessorKey: "name",
     header: "Name",
+    size: 200,
+  },
+  {
+    accessorKey: "createdAt",
+    header: "createdAt",
   },
 ];
 
