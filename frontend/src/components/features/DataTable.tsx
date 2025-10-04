@@ -13,6 +13,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { cn } from "@/lib/utils";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -39,9 +40,11 @@ export function DataTable<TData, TValue>({
                   <TableHead
                     key={header.id}
                     style={{ width: header.getSize() }}
-                    className="truncate px-2"
+                    className={cn(
+                      "truncate px-2",
+                      header.column.columnDef.meta?.widthClass,
+                    )}
                   >
-                    <div>{header.getSize()}</div>
                     {header.isPlaceholder
                       ? null
                       : flexRender(
@@ -62,7 +65,10 @@ export function DataTable<TData, TValue>({
                 data-state={row.getIsSelected() && "selected"}
               >
                 {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
+                  <TableCell
+                    key={cell.id}
+                    className={cn(cell.column.columnDef.meta?.widthClass)}
+                  >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
                 ))}
