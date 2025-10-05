@@ -1,4 +1,7 @@
-import { DataTable } from "@/components/features/DataTable";
+import {
+  DataTable,
+  PagingDataTableFooter,
+} from "@/components/features/DataTable";
 import { SectionHeader } from "@/components/features/SectionHeader";
 import { createFileRoute } from "@tanstack/react-router";
 import { type ColumnDef } from "@tanstack/react-table";
@@ -42,7 +45,11 @@ function RouteComponent() {
         title="Organization management"
         description="Manage customer tenants, subscription plans, and integration access here."
       />
-      <DataTable columns={columns} data={TEST_DATA} />
+      <DataTable
+        columns={columns}
+        data={TEST_DATA}
+        footer={PagingDataTableFooter}
+      />
     </div>
   );
 }
