@@ -1,4 +1,5 @@
 import { DataTable } from "@/components/features/DataTable";
+import { SectionHeader } from "@/components/features/SectionHeader";
 import { createFileRoute } from "@tanstack/react-router";
 import { type ColumnDef } from "@tanstack/react-table";
 
@@ -36,11 +37,11 @@ const columns: ColumnDef<Organization>[] = [
 
 function RouteComponent() {
   return (
-    <div>
-      <div>User management</div>
-      <div>
-        management your team and memebers and their account permissions here.
-      </div>
+    <div className="space-y-6">
+      <SectionHeader
+        title="Organization management"
+        description="Manage customer tenants, subscription plans, and integration access here."
+      />
       <DataTable columns={columns} data={TEST_DATA} />
     </div>
   );
