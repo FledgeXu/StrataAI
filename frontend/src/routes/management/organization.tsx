@@ -2,7 +2,10 @@ import {
   DataTable,
   PagingDataTableFooter,
 } from "@/components/features/DataTable";
-import { type Table as TanstackTable } from "@tanstack/react-table";
+import {
+  createColumnHelper,
+  type Table as TanstackTable,
+} from "@tanstack/react-table";
 import { SectionHeader } from "@/components/features/SectionHeader";
 import { createFileRoute } from "@tanstack/react-router";
 import { type ColumnDef } from "@tanstack/react-table";
@@ -41,6 +44,8 @@ const TEST_DATA: Organization[] = [
     createdAt: Date.now(),
   },
 ];
+
+const columnHelper = createColumnHelper<Organization>();
 
 const columns: ColumnDef<Organization>[] = [
   {
