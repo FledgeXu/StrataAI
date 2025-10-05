@@ -1,6 +1,7 @@
 import {
   DataTable,
   PagingDataTableFooter,
+  SearchAndFilterDataTableHeader,
 } from "@/components/features/DataTable";
 import { SectionHeader } from "@/components/features/SectionHeader";
 import { createFileRoute } from "@tanstack/react-router";
