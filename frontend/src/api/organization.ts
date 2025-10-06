@@ -7,6 +7,12 @@ import type {
 import { apiClient, unwrap } from "./client";
 import { ApiError, type ApiEnvelope } from "./types";
 
+
+export const fetchAllOrganizations = async (): Promise<Organization[]> =>
+  unwrap<Organization[]>(
+    apiClient.get<ApiEnvelope<Organization[]>>(`/organizations`),
+  );
+
 export const fetchOrganization = async (id: string): Promise<Organization> =>
   unwrap<Organization>(
     apiClient.get<ApiEnvelope<Organization>>(`/organizations/${id}`),
