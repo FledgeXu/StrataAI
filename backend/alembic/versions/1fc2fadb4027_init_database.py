@@ -1,20 +1,20 @@
 """init database
 
-Revision ID: bc0cf0433d12
+Revision ID: 1fc2fadb4027
 Revises:
-Create Date: 2025-09-23 20:05:42.270291
+Create Date: 2025-10-06 19:38:42.521234
 
 """
 
 from typing import Sequence, Union
 
-import fastapi_users_db_sqlalchemy
 import sqlalchemy as sa
+from fastapi_users_db_sqlalchemy import generics
 
 from alembic import op
 
 # revision identifiers, used by Alembic.
-revision: str = "bc0cf0433d12"
+revision: str = "1fc2fadb4027"
 down_revision: Union[str, Sequence[str], None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -32,6 +32,7 @@ def upgrade() -> None:
             sa.Enum("client", "vendor", "internal", name="organizationkind"),
             nullable=False,
         ),
+        sa.Column("industry", sa.String(), nullable=False),
         sa.Column("is_active", sa.Boolean(), nullable=False),
         sa.Column(
             "created_at",
@@ -50,7 +51,7 @@ def upgrade() -> None:
     )
     op.create_table(
         "user",
-        sa.Column("id", fastapi_users_db_sqlalchemy.generics.GUID(), nullable=False),
+        sa.Column("id", generics.GUID(), nullable=False),
         sa.Column("email", sa.String(length=320), nullable=False),
         sa.Column("hashed_password", sa.String(length=1024), nullable=False),
         sa.Column("is_active", sa.Boolean(), nullable=False),
