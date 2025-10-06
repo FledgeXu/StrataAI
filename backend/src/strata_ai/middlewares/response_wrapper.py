@@ -8,6 +8,9 @@ from strata_ai.core.config import Config
 
 async def wrap_response(request: Request, call_next):
     # Filter routers with NO_WRAP_TAG.
+    if request.url.path == "/openapi.json":
+        return await call_next(request)
+
     route = request.scope.get("route")
     if isinstance(route, APIRoute) and Config.NO_WRAP_TAG in (route.tags or []):
         return await call_next(request)
