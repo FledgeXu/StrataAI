@@ -1,5 +1,6 @@
+from typing import Sequence
 import uuid
-from typing import AsyncGenerator, Optional
+from collections.abc import AsyncGenerator
 
 from fastapi import Depends
 from returns.maybe import Maybe
@@ -35,9 +36,9 @@ class OrganizationService:
         self,
         organization_id: uuid.UUID,
         *,
-        name: Optional[str] = None,
-        kind: Optional[OrganizationKind] = None,
-        industry: Optional[str] = None,
+        name: str | None = None,
+        kind: OrganizationKind | None = None,
+        industry: str | None = None,
     ) -> Maybe[Organization]:
         return await self._repo.update(
             organization_id,
@@ -57,6 +58,8 @@ class OrganizationService:
     async def deactivate(self, organization_id: uuid.UUID) -> Maybe[Organization]:
         return await self._repo.deactivate(organization_id)
 
+    async def list(self) -> Sequence[Organization]:
+        return await self._repo.list()
 
 async def get_organization_service(
     repo: OrganizationRepository = Depends(

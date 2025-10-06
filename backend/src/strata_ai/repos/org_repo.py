@@ -1,5 +1,5 @@
 import uuid
-from typing import Optional
+from typing import Sequence
 
 from returns.maybe import Maybe, Nothing
 from sqlalchemy import select
@@ -38,9 +38,9 @@ class OrganizationRepository(BaseRepository):
         self,
         organization_id: uuid.UUID,
         *,
-        name: Optional[str] = None,
-        kind: Optional[OrganizationKind] = None,
-        industry: Optional[str] = None,
+        name: str | None = None,
+        kind: OrganizationKind | None = None,
+        industry: str | None = None,
     ) -> Maybe[Organization]:
         async with self._session.begin():
             maybe_organization = await self.get(organization_id)
@@ -77,3 +77,7 @@ class OrganizationRepository(BaseRepository):
 
     async def deactivate(self, organization_id: uuid.UUID) -> Maybe[Organization]:
         return await self.set_active(organization_id, False)
+
+    async def list(self) -> Sequence[Organization]:
+        result = await self._session.execute(select(Organization))
+        return result.scalars().all()
