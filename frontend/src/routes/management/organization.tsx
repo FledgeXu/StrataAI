@@ -12,38 +12,11 @@ import { type ColumnDef } from "@tanstack/react-table";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { PlusIcon } from "lucide-react";
+import type { Organization } from "@/types/organization";
 
 export const Route = createFileRoute("/management/organization")({
   component: RouteComponent,
 });
-
-type Organization = {
-  id: string;
-  name: string;
-  category: string;
-  industry: string;
-  status: string;
-  createdAt: number;
-};
-
-const TEST_DATA: Organization[] = [
-  {
-    id: "1",
-    name: "Test Server",
-    category: "provider",
-    industry: "provider",
-    status: "active",
-    createdAt: Date.now(),
-  },
-  {
-    id: "2",
-    name: "Test Provider",
-    category: "provider",
-    industry: "provider",
-    status: "active",
-    createdAt: Date.now(),
-  },
-];
 
 const columnHelper = createColumnHelper<Organization>();
 

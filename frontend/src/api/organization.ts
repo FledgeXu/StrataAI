@@ -1,36 +1,11 @@
+import type {
+  Organization,
+  OrganizationCreateInput,
+  OrganizationUpdateInput,
+  OrganizationIdInput,
+} from "@/types/organization";
 import { apiClient, unwrap } from "./client";
 import { ApiError, type ApiEnvelope } from "./types";
-
-export type OrganizationKind = "client" | "vendor" | "internal";
-
-export type Organization = {
-  id: string;
-  name: string;
-  kind: OrganizationKind;
-  industry: string;
-  isActive: boolean;
-  createdAt: string;
-  updatedAt: string;
-};
-
-export type OrganizationCreateInput = {
-  name: string;
-  kind: OrganizationKind;
-  industry: string;
-  isActive?: boolean;
-};
-
-export type OrganizationUpdateInput = {
-  id: string;
-  name?: string;
-  kind?: OrganizationKind;
-  industry?: string;
-  isActive?: boolean;
-};
-
-export type OrganizationIdInput = {
-  id: string;
-};
 
 export const fetchOrganization = async (id: string): Promise<Organization> =>
   unwrap<Organization>(
