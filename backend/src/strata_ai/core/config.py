@@ -2,7 +2,6 @@ import os
 
 
 class Config:
-    NO_WRAP_TAG = "no-wrap"
     DEBUG_MODE = os.getenv("DEBUG_MODE", "False").lower() == "true"
     DATABASE_URL = os.getenv(
         "DATABASE_URL",

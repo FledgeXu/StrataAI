@@ -1,10 +1,9 @@
 from fastapi import APIRouter
 
 from strata_ai.auth.backend import auth_backend, fastapi_users
-from strata_ai.core.config import Config
 from strata_ai.schemas.user import UserCreate, UserRead
 
-router = APIRouter(prefix="/auth", tags=["auth", Config.NO_WRAP_TAG])
+router = APIRouter(prefix="/auth", tags=["auth"])
 
 router.include_router(fastapi_users.get_auth_router(auth_backend))
 

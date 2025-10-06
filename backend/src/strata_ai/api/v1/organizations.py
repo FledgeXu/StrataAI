@@ -9,6 +9,7 @@ from strata_ai.schemas.organization import (
     OrganizationRead,
     OrganizationUpdate,
 )
+from strata_ai.schemas.resp import Resp, ok
 from strata_ai.services.organization_service import (
     OrganizationService,
     get_organization_service,
@@ -29,7 +30,7 @@ def _unwrap_organization(maybe_organization: Maybe[Organization]) -> Organizatio
 
 @router.post(
     "/",
-    response_model=OrganizationRead,
+    response_model=Resp[OrganizationRead],
     status_code=status.HTTP_201_CREATED,
 )
 async def create_organization(
@@ -42,23 +43,23 @@ async def create_organization(
         industry=payload.industry,
         is_active=payload.is_active,
     )
-    return organization
+    return ok(organization, code=status.HTTP_201_CREATED)
 
 
 @router.get(
     "/{organization_id}",
-    response_model=OrganizationRead,
+    response_model=Resp[OrganizationRead],
 )
 async def get_organization(
     organization_id: uuid.UUID,
     service: OrganizationService = Depends(get_organization_service),
 ):
-    return _unwrap_organization(await service.get(organization_id))
+    return ok(_unwrap_organization(await service.get(organization_id)))
 
 
 @router.patch(
     "/{organization_id}",
-    response_model=OrganizationRead,
+    response_model=Resp[OrganizationRead],
 )
 async def update_organization(
     organization_id: uuid.UUID,
@@ -72,31 +73,33 @@ async def update_organization(
             detail="No fields provided for update",
         )
 
-    return _unwrap_organization(
-        await service.update(
-            organization_id,
-            **updates,
+    return ok(
+        _unwrap_organization(
+            await service.update(
+                organization_id,
+                **updates,
+            )
         )
     )
 
 
 @router.post(
     "/{organization_id}/activate",
-    response_model=OrganizationRead,
+    response_model=Resp[OrganizationRead],
 )
 async def activate_organization(
     organization_id: uuid.UUID,
     service: OrganizationService = Depends(get_organization_service),
 ):
-    return _unwrap_organization(await service.activate(organization_id))
+    return ok(_unwrap_organization(await service.activate(organization_id)))
 
 
 @router.post(
     "/{organization_id}/deactivate",
-    response_model=OrganizationRead,
+    response_model=Resp[OrganizationRead],
 )
 async def deactivate_organization(
     organization_id: uuid.UUID,
     service: OrganizationService = Depends(get_organization_service),
 ):
-    return _unwrap_organization(await service.deactivate(organization_id))
+    return ok(_unwrap_organization(await service.deactivate(organization_id)))
