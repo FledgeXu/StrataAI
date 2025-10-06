@@ -8,164 +8,164 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from "./routes/__root";
-import { Route as ManagementRouteImport } from "./routes/management";
-import { Route as LoginRouteImport } from "./routes/login";
-import { Route as AboutRouteImport } from "./routes/about";
-import { Route as IndexRouteImport } from "./routes/index";
-import { Route as ManagementIndexRouteImport } from "./routes/management/index";
-import { Route as ManagementOrganizationRouteImport } from "./routes/management/organization";
+import { Route as rootRouteImport } from './routes/__root'
+import { Route as ManagementRouteImport } from './routes/management'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as IndexRouteImport } from './routes/index'
+import { Route as ManagementIndexRouteImport } from './routes/management/index'
+import { Route as ManagementOrganizationRouteImport } from './routes/management/organization'
 
 const ManagementRoute = ManagementRouteImport.update({
-  id: "/management",
-  path: "/management",
+  id: '/management',
+  path: '/management',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const LoginRoute = LoginRouteImport.update({
-  id: "/login",
-  path: "/login",
+  id: '/login',
+  path: '/login',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const AboutRoute = AboutRouteImport.update({
-  id: "/about",
-  path: "/about",
+  id: '/about',
+  path: '/about',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const IndexRoute = IndexRouteImport.update({
-  id: "/",
-  path: "/",
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const ManagementIndexRoute = ManagementIndexRouteImport.update({
-  id: "/",
-  path: "/",
+  id: '/',
+  path: '/',
   getParentRoute: () => ManagementRoute,
-} as any);
+} as any)
 const ManagementOrganizationRoute = ManagementOrganizationRouteImport.update({
-  id: "/organization",
-  path: "/organization",
+  id: '/organization',
+  path: '/organization',
   getParentRoute: () => ManagementRoute,
-} as any);
+} as any)
 
 export interface FileRoutesByFullPath {
-  "/": typeof IndexRoute;
-  "/about": typeof AboutRoute;
-  "/login": typeof LoginRoute;
-  "/management": typeof ManagementRouteWithChildren;
-  "/management/organization": typeof ManagementOrganizationRoute;
-  "/management/": typeof ManagementIndexRoute;
+  '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/login': typeof LoginRoute
+  '/management': typeof ManagementRouteWithChildren
+  '/management/organization': typeof ManagementOrganizationRoute
+  '/management/': typeof ManagementIndexRoute
 }
 export interface FileRoutesByTo {
-  "/": typeof IndexRoute;
-  "/about": typeof AboutRoute;
-  "/login": typeof LoginRoute;
-  "/management/organization": typeof ManagementOrganizationRoute;
-  "/management": typeof ManagementIndexRoute;
+  '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/login': typeof LoginRoute
+  '/management/organization': typeof ManagementOrganizationRoute
+  '/management': typeof ManagementIndexRoute
 }
 export interface FileRoutesById {
-  __root__: typeof rootRouteImport;
-  "/": typeof IndexRoute;
-  "/about": typeof AboutRoute;
-  "/login": typeof LoginRoute;
-  "/management": typeof ManagementRouteWithChildren;
-  "/management/organization": typeof ManagementOrganizationRoute;
-  "/management/": typeof ManagementIndexRoute;
+  __root__: typeof rootRouteImport
+  '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/login': typeof LoginRoute
+  '/management': typeof ManagementRouteWithChildren
+  '/management/organization': typeof ManagementOrganizationRoute
+  '/management/': typeof ManagementIndexRoute
 }
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath;
+  fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | "/"
-    | "/about"
-    | "/login"
-    | "/management"
-    | "/management/organization"
-    | "/management/";
-  fileRoutesByTo: FileRoutesByTo;
-  to: "/" | "/about" | "/login" | "/management/organization" | "/management";
+    | '/'
+    | '/about'
+    | '/login'
+    | '/management'
+    | '/management/organization'
+    | '/management/'
+  fileRoutesByTo: FileRoutesByTo
+  to: '/' | '/about' | '/login' | '/management/organization' | '/management'
   id:
-    | "__root__"
-    | "/"
-    | "/about"
-    | "/login"
-    | "/management"
-    | "/management/organization"
-    | "/management/";
-  fileRoutesById: FileRoutesById;
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/login'
+    | '/management'
+    | '/management/organization'
+    | '/management/'
+  fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute;
-  AboutRoute: typeof AboutRoute;
-  LoginRoute: typeof LoginRoute;
-  ManagementRoute: typeof ManagementRouteWithChildren;
+  IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  LoginRoute: typeof LoginRoute
+  ManagementRoute: typeof ManagementRouteWithChildren
 }
 
-declare module "@tanstack/react-router" {
+declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    "/management": {
-      id: "/management";
-      path: "/management";
-      fullPath: "/management";
-      preLoaderRoute: typeof ManagementRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/login": {
-      id: "/login";
-      path: "/login";
-      fullPath: "/login";
-      preLoaderRoute: typeof LoginRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/about": {
-      id: "/about";
-      path: "/about";
-      fullPath: "/about";
-      preLoaderRoute: typeof AboutRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/": {
-      id: "/";
-      path: "/";
-      fullPath: "/";
-      preLoaderRoute: typeof IndexRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/management/": {
-      id: "/management/";
-      path: "/";
-      fullPath: "/management/";
-      preLoaderRoute: typeof ManagementIndexRouteImport;
-      parentRoute: typeof ManagementRoute;
-    };
-    "/management/organization": {
-      id: "/management/organization";
-      path: "/organization";
-      fullPath: "/management/organization";
-      preLoaderRoute: typeof ManagementOrganizationRouteImport;
-      parentRoute: typeof ManagementRoute;
-    };
+    '/management': {
+      id: '/management'
+      path: '/management'
+      fullPath: '/management'
+      preLoaderRoute: typeof ManagementRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/management/': {
+      id: '/management/'
+      path: '/'
+      fullPath: '/management/'
+      preLoaderRoute: typeof ManagementIndexRouteImport
+      parentRoute: typeof ManagementRoute
+    }
+    '/management/organization': {
+      id: '/management/organization'
+      path: '/organization'
+      fullPath: '/management/organization'
+      preLoaderRoute: typeof ManagementOrganizationRouteImport
+      parentRoute: typeof ManagementRoute
+    }
   }
 }
 
 interface ManagementRouteChildren {
-  ManagementOrganizationRoute: typeof ManagementOrganizationRoute;
-  ManagementIndexRoute: typeof ManagementIndexRoute;
+  ManagementOrganizationRoute: typeof ManagementOrganizationRoute
+  ManagementIndexRoute: typeof ManagementIndexRoute
 }
 
 const ManagementRouteChildren: ManagementRouteChildren = {
   ManagementOrganizationRoute: ManagementOrganizationRoute,
   ManagementIndexRoute: ManagementIndexRoute,
-};
+}
 
 const ManagementRouteWithChildren = ManagementRoute._addFileChildren(
   ManagementRouteChildren,
-);
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   LoginRoute: LoginRoute,
   ManagementRoute: ManagementRouteWithChildren,
-};
+}
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>();
+  ._addFileTypes<FileRouteTypes>()

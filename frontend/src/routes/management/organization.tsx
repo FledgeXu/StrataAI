@@ -13,6 +13,8 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { PlusIcon } from "lucide-react";
 import type { Organization } from "@/types/organization";
+import { useQuery } from "@tanstack/react-query";
+import { fetchAllOrganizations } from "@/api";
 
 export const Route = createFileRoute("/management/organization")({
   component: RouteComponent,
@@ -54,6 +56,11 @@ export function OrganizationSearchHeader<TData>(table: TanstackTable<TData>) {
 }
 
 function RouteComponent() {
+  const { data } = useQuery({
+    queryKey: ["fetchAllOrganizations"],
+    queryFn: fetchAllOrganizations,
+  });
+
   return (
     <div className="space-y-6 m-4">
       <SectionHeader
@@ -62,7 +69,7 @@ function RouteComponent() {
       />
       <DataTable
         columns={columns}
-        data={TEST_DATA}
+        data={data ?? []}
         header={OrganizationSearchHeader}
         footer={PagingDataTableFooter}
       />
