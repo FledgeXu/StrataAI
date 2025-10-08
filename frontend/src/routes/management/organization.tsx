@@ -50,8 +50,8 @@ export function OrganizationSearchHeader<TData>(table: TanstackTable<TData>) {
         className="max-w-sm"
       />
 
-      <SheetTrigger>
-        <Button size="sm">
+      <SheetTrigger asChild>
+        <Button size="sm" type="button">
           <PlusIcon />
           New
         </Button>
