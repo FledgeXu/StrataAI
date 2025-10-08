@@ -15,6 +15,14 @@ import { PlusIcon } from "lucide-react";
 import type { Organization } from "@/types/organization";
 import { useQuery } from "@tanstack/react-query";
 import { fetchAllOrganizations } from "@/api";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 
 export const Route = createFileRoute("/management/organization")({
   component: RouteComponent,
@@ -47,11 +55,28 @@ export function OrganizationSearchHeader<TData>(table: TanstackTable<TData>) {
         }
         className="max-w-sm"
       />
-      <Button size="sm">
-        <PlusIcon />
-        New
-      </Button>
+
+      <SheetTrigger>
+        <Button size="sm">
+          <PlusIcon />
+          New
+        </Button>
+      </SheetTrigger>
     </div>
+  );
+}
+
+function CreateOrgComponent() {
+  return (
+    <SheetContent>
+      <SheetHeader>
+        <SheetTitle>Are you absolutely sure?</SheetTitle>
+        <SheetDescription>
+          This action cannot be undone. This will permanently delete your
+          account and remove your data from our servers.
+        </SheetDescription>
+      </SheetHeader>
+    </SheetContent>
   );
 }
 
@@ -62,17 +87,20 @@ function RouteComponent() {
   });
 
   return (
-    <div className="space-y-6 m-4">
-      <SectionHeader
-        title="Organization management"
-        description="Manage customer tenants, subscription plans, and integration access here."
-      />
-      <DataTable
-        columns={columns}
-        data={data ?? []}
-        header={OrganizationSearchHeader}
-        footer={PagingDataTableFooter}
-      />
-    </div>
+    <Sheet>
+      <CreateOrgComponent />
+      <div className="space-y-6 m-4">
+        <SectionHeader
+          title="Organization management"
+          description="Manage customer tenants, subscription plans, and integration access here."
+        />
+        <DataTable
+          columns={columns}
+          data={data ?? []}
+          header={OrganizationSearchHeader}
+          footer={PagingDataTableFooter}
+        />
+      </div>
+    </Sheet>
   );
 }
