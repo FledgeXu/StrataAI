@@ -12,7 +12,7 @@ import { type ColumnDef } from "@tanstack/react-table";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { PlusIcon } from "lucide-react";
-import type { Organization } from "@/types/organization";
+import type { Organization, OrganizationKind } from "@/types/organization";
 import { useQuery } from "@tanstack/react-query";
 import { fetchAllOrganizations } from "@/api";
 import {
@@ -36,6 +36,13 @@ import {
   FieldTitle,
 } from "@/components/ui/field";
 import { Checkbox } from "@/components/ui/checkbox";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export const Route = createFileRoute("/management/organization")({
   component: RouteComponent,
@@ -56,6 +63,8 @@ const columns: ColumnDef<Organization>[] = [
     },
   },
 ];
+
+const organizationKinds: OrganizationKind[] = ["client", "vendor", "internal"];
 
 export function OrganizationSearchHeader<TData>(table: TanstackTable<TData>) {
   return (
@@ -95,11 +104,30 @@ function CreateOrgComponent() {
             <Input id="name" autoComplete="off" placeholder="Acme Corp" />
           </Field>
           <Field>
-            <FieldLabel htmlFor="kind">Kind</FieldLabel>
-            <Input id="kind" autoComplete="off" placeholder="client" />
-            <FieldDescription>
-              Describe the organization type, for example client or vendor.
-            </FieldDescription>
+            <FieldLabel id="kind-label" htmlFor="kind">
+              Kind
+            </FieldLabel>
+            <FieldContent>
+              <Select defaultValue="client">
+                <SelectTrigger
+                  id="kind"
+                  aria-labelledby="kind-label"
+                  className="w-full"
+                >
+                  <SelectValue placeholder="Select kind" />
+                </SelectTrigger>
+                <SelectContent>
+                  {organizationKinds.map((kind) => (
+                    <SelectItem key={kind} value={kind}>
+                      {kind.charAt(0).toUpperCase() + kind.slice(1)}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <FieldDescription>
+                Describe the organization type, for example client or vendor.
+              </FieldDescription>
+            </FieldContent>
           </Field>
           <Field>
             <FieldLabel htmlFor="industry">Industry</FieldLabel>
