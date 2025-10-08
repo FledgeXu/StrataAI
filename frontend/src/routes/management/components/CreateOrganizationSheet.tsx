@@ -25,8 +25,15 @@ import {
 } from "@/components/ui/select";
 import type { OrganizationKind } from "@/types/organization";
 import { Button } from "@/components/ui/button";
+import { z } from "zod";
 
 const organizationKinds: OrganizationKind[] = ["client", "vendor", "internal"];
+const formSchema = z.object({
+  name: z.string().min(4).max(50),
+  kind: z.enum(organizationKinds).default("client"),
+  industry: z.string().min(2).max(50),
+  isActive: z.boolean().default(true),
+});
 
 export function CreateOrganizationSheet() {
   return (
