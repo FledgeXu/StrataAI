@@ -35,6 +35,7 @@ import {
   FieldSet,
   FieldTitle,
 } from "@/components/ui/field";
+import { Checkbox } from "@/components/ui/checkbox";
 
 export const Route = createFileRoute("/management/organization")({
   component: RouteComponent,
@@ -84,28 +85,34 @@ function CreateOrgComponent() {
       <SheetHeader>
         <SheetTitle>Create Organization.</SheetTitle>
         <SheetDescription>
-          This action cannot be undone. This will permanently delete your
-          account and remove your data from our servers.
+          Provide the organization details below to create a new record.
         </SheetDescription>
       </SheetHeader>
       <FieldSet className="px-4">
         <FieldGroup>
           <Field>
-            <FieldLabel htmlFor="name">Full name</FieldLabel>
-            <Input id="name" autoComplete="off" placeholder="Evil Rabbit" />
+            <FieldLabel htmlFor="name">Name</FieldLabel>
+            <Input id="name" autoComplete="off" placeholder="Acme Corp" />
+          </Field>
+          <Field>
+            <FieldLabel htmlFor="kind">Kind</FieldLabel>
+            <Input id="kind" autoComplete="off" placeholder="client" />
             <FieldDescription>
-              This appears on invoices and emails.
+              Describe the organization type, for example client or vendor.
             </FieldDescription>
           </Field>
           <Field>
-            <FieldLabel htmlFor="username">Username</FieldLabel>
-            <Input id="username" autoComplete="off" aria-invalid />
+            <FieldLabel htmlFor="industry">Industry</FieldLabel>
+            <Input id="industry" autoComplete="off" placeholder="Technology" />
           </Field>
           <Field orientation="horizontal">
-            {/* <Switch id="newsletter" /> */}
-            <FieldLabel htmlFor="newsletter">
-              Subscribe to the newsletter
-            </FieldLabel>
+            <Checkbox id="isActive" defaultChecked />
+            <FieldContent>
+              <FieldLabel htmlFor="isActive">Active organization</FieldLabel>
+              <FieldDescription>
+                Toggle to mark the organization as active.
+              </FieldDescription>
+            </FieldContent>
           </Field>
         </FieldGroup>
       </FieldSet>
