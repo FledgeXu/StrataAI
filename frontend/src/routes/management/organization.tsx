@@ -23,6 +23,18 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import {
+  Field,
+  FieldContent,
+  FieldDescription,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+  FieldLegend,
+  FieldSeparator,
+  FieldSet,
+  FieldTitle,
+} from "@/components/ui/field";
 
 export const Route = createFileRoute("/management/organization")({
   component: RouteComponent,
@@ -70,12 +82,33 @@ function CreateOrgComponent() {
   return (
     <SheetContent>
       <SheetHeader>
-        <SheetTitle>Are you absolutely sure?</SheetTitle>
+        <SheetTitle>Create Organization.</SheetTitle>
         <SheetDescription>
           This action cannot be undone. This will permanently delete your
           account and remove your data from our servers.
         </SheetDescription>
       </SheetHeader>
+      <FieldSet className="px-4">
+        <FieldGroup>
+          <Field>
+            <FieldLabel htmlFor="name">Full name</FieldLabel>
+            <Input id="name" autoComplete="off" placeholder="Evil Rabbit" />
+            <FieldDescription>
+              This appears on invoices and emails.
+            </FieldDescription>
+          </Field>
+          <Field>
+            <FieldLabel htmlFor="username">Username</FieldLabel>
+            <Input id="username" autoComplete="off" aria-invalid />
+          </Field>
+          <Field orientation="horizontal">
+            {/* <Switch id="newsletter" /> */}
+            <FieldLabel htmlFor="newsletter">
+              Subscribe to the newsletter
+            </FieldLabel>
+          </Field>
+        </FieldGroup>
+      </FieldSet>
     </SheetContent>
   );
 }
