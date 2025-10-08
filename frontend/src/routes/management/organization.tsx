@@ -22,6 +22,8 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
+  SheetFooter,
+  SheetClose,
 } from "@/components/ui/sheet";
 import {
   Field,
@@ -144,6 +146,12 @@ function CreateOrgComponent() {
           </Field>
         </FieldGroup>
       </FieldSet>
+      <SheetFooter>
+        <Button type="submit">Save changes</Button>
+        <SheetClose asChild>
+          <Button variant="outline">Close</Button>
+        </SheetClose>
+      </SheetFooter>
     </SheetContent>
   );
 }
