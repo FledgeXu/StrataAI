@@ -18,13 +18,14 @@ from strata_ai.services.organization_service import (
 router = APIRouter(prefix="/organizations", tags=["organizations"])
 
 
-def _unwrap_organization(maybe_organization: Maybe[Organization]) -> Organization:
+def _unwrap_organization(
+    maybe_organization: Maybe[Organization],
+    detail: str = "Organization not found",
+    status_code: int = status.HTTP_404_NOT_FOUND,
+) -> Organization:
     organization = maybe_organization.value_or(None)
     if organization is None:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Organization not found",
-        )
+        raise HTTPException(status_code=status_code, detail=detail)
     return organization
 
 
@@ -37,13 +38,19 @@ async def create_organization(
     payload: OrganizationCreate,
     service: OrganizationService = Depends(get_organization_service),
 ):
-    organization = await service.create(
+    org_result = await service.create(
         name=payload.name,
         kind=payload.kind,
         industry=payload.industry,
         is_active=payload.is_active,
     )
-    return ok(organization, code=status.HTTP_201_CREATED)
+    return ok(
+        _unwrap_organization(
+            org_result,
+            "Organization with the same name already exists",
+            status.HTTP_409_CONFLICT,
+        )
+    )
 
 
 @router.get(

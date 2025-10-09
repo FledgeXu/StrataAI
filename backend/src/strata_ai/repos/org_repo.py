@@ -34,6 +34,12 @@ class OrganizationRepository(BaseRepository):
         )
         return Maybe(result.scalar_one_or_none())
 
+    async def exists_by_name(self, name: str) -> bool:
+        result = await self._session.execute(
+            select(Organization.id).where(Organization.name == name)
+        )
+        return result.scalar_one_or_none() is not None
+
     async def update(
         self,
         organization_id: uuid.UUID,

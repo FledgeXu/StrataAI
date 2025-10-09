@@ -1,9 +1,9 @@
-from typing import Sequence
 import uuid
 from collections.abc import AsyncGenerator
+from typing import Sequence
 
 from fastapi import Depends
-from returns.maybe import Maybe
+from returns.maybe import Maybe, Nothing
 
 from strata_ai.db.engine import get_async_session
 from strata_ai.models.organizations import Organization, OrganizationKind
@@ -21,12 +21,16 @@ class OrganizationService:
         kind: OrganizationKind,
         industry: str,
         is_active: bool = True,
-    ) -> Organization:
-        return await self._repo.add(
-            name=name,
-            kind=kind,
-            industry=industry,
-            is_active=is_active,
+    ) -> Maybe[Organization]:
+        if await self.is_name_taken(name):
+            return Nothing
+        return Maybe(
+            await self._repo.add(
+                name=name,
+                kind=kind,
+                industry=industry,
+                is_active=is_active,
+            )
         )
 
     async def get(self, organization_id: uuid.UUID) -> Maybe[Organization]:
@@ -60,6 +64,10 @@ class OrganizationService:
 
     async def list(self) -> Sequence[Organization]:
         return await self._repo.list()
+
+    async def is_name_taken(self, name: str) -> bool:
+        return await self._repo.exists_by_name(name)
+
 
 async def get_organization_service(
     repo: OrganizationRepository = Depends(
