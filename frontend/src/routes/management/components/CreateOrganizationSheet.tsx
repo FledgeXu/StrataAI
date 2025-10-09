@@ -6,6 +6,7 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -29,6 +30,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import type { OrganizationCreateInput } from "@/types/organization";
+import { createOrganization } from "@/api";
 
 const organizationKinds = ["client", "vendor", "internal"] as const;
 
@@ -49,14 +51,24 @@ export function CreateOrganizationSheet() {
       industry: "",
     },
   });
+  const queryClient = useQueryClient();
+  const createOrganizationMutation = useMutation({
+    mutationFn: createOrganization,
+    onSuccess: () => {
+      form.reset();
+      void queryClient.invalidateQueries({
+        // TODO: move all query keys to a file as constants.
+        queryKey: ["fetchAllOrganizations"],
+      });
+    },
+  });
 
   const onSubmit = (values: CreateOrganizationFormValues) => {
     const payload: OrganizationCreateInput = {
       ...values,
       isActive: true,
     };
-    // TODO: replace with mutation trigger once API integration is ready.
-    console.log("create organization form submitted", payload);
+    void createOrganizationMutation.mutateAsync(payload);
   };
 
   return (

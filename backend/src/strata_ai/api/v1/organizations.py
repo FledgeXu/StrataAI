@@ -53,10 +53,7 @@ async def create_organization(
 async def list_organizations(
     service: OrganizationService = Depends(get_organization_service),
 ):
-    payload = [
-        OrganizationRead.model_validate(org, by_name=True)
-        for org in await service.list()
-    ]
+    payload = [OrganizationRead.model_validate(org) for org in await service.list()]
     return ok(payload)
 
 

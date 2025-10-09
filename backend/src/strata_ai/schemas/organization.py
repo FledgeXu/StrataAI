@@ -27,7 +27,10 @@ class OrganizationUpdate(BaseModel):
 
 class OrganizationRead(BaseModel):
     model_config = ConfigDict(
-        from_attributes=True, extra="forbid", alias_generator=to_camel
+        from_attributes=True,
+        extra="forbid",
+        alias_generator=to_camel,
+        validate_by_name=True,
     )
 
     name: str
