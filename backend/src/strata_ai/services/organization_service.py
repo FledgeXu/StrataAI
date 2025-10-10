@@ -3,7 +3,7 @@ from collections.abc import AsyncGenerator
 from typing import Sequence
 
 from fastapi import Depends
-from returns.maybe import Maybe, Nothing
+from returns.maybe import Maybe, Nothing, Some
 
 from strata_ai.db.engine import get_async_session
 from strata_ai.models.organizations import Organization, OrganizationKind
@@ -24,7 +24,7 @@ class OrganizationService:
     ) -> Maybe[Organization]:
         if await self.is_name_taken(name):
             return Nothing
-        return Maybe(
+        return Some(
             await self._repo.add(
                 name=name,
                 kind=kind,

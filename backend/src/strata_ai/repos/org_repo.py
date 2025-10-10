@@ -1,7 +1,7 @@
 import uuid
 from typing import Sequence
 
-from returns.maybe import Maybe, Nothing
+from returns.maybe import Maybe, Nothing, Some
 from sqlalchemy import select
 
 from strata_ai.models.organizations import Organization, OrganizationKind
@@ -23,8 +23,8 @@ class OrganizationRepository(BaseRepository):
             industry=industry,
             is_active=is_active,
         )
-        async with self._session.begin():
-            self._session.add(organization)
+        self._session.add(organization)
+        await self._session.flush()
         await self._session.refresh(organization)
         return organization
 
@@ -32,7 +32,7 @@ class OrganizationRepository(BaseRepository):
         result = await self._session.execute(
             select(Organization).where(Organization.id == organization_id)
         )
-        return Maybe(result.scalar_one_or_none())
+        return Maybe.from_optional(result.scalar_one_or_none())
 
     async def exists_by_name(self, name: str) -> bool:
         result = await self._session.execute(
@@ -62,7 +62,7 @@ class OrganizationRepository(BaseRepository):
                 organization.industry = industry
 
         await self._session.refresh(organization)
-        return Maybe(organization)
+        return Some(organization)
 
     async def set_active(
         self, organization_id: uuid.UUID, is_active: bool
@@ -76,7 +76,7 @@ class OrganizationRepository(BaseRepository):
             organization.is_active = is_active
 
         await self._session.refresh(organization)
-        return Maybe(organization)
+        return Some(organization)
 
     async def activate(self, organization_id: uuid.UUID) -> Maybe[Organization]:
         return await self.set_active(organization_id, True)
