@@ -15,10 +15,14 @@ export const apiClient = axios.create({
 export async function unwrap<T>(
   responsePromise: Promise<AxiosResponse<ApiEnvelope<T>>>,
 ): Promise<T> {
-  const { data } = await responsePromise;
-  if (data.code >= 400 || data.data === undefined || data.data === null) {
-    throw new ApiError(data.message ?? "Unknown API error", data.code);
+  try {
+    const { data } = await responsePromise;
+    return data.data
+  } catch (err) {
+    if (axios.isAxiosError(err) && err.response) {
+      const msg = err.response.data?.message ?? err.response.statusText
+      throw new ApiError(msg, err.response.status)
+    }
+    throw err
   }
-
-  return data.data;
 }
