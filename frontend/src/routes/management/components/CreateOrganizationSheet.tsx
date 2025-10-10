@@ -29,8 +29,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import type { OrganizationCreateInput } from "@/types/organization";
+import { toast } from "sonner";
 import { createOrganization } from "@/api";
+import type { OrganizationCreateInput } from "@/types/organization";
 
 const organizationKinds = ["client", "vendor", "internal"] as const;
 
@@ -54,11 +55,23 @@ export function CreateOrganizationSheet() {
   const queryClient = useQueryClient();
   const createOrganizationMutation = useMutation({
     mutationFn: createOrganization,
-    onSuccess: () => {
+    onSuccess: (_, variables) => {
       form.reset();
       void queryClient.invalidateQueries({
         // TODO: move all query keys to a file as constants.
         queryKey: ["fetchAllOrganizations"],
+      });
+      toast.success("Organization created", {
+        description: `"${variables.name}" was added successfully.`,
+      });
+    },
+    onError: (error, variables) => {
+      const message =
+        error instanceof Error && error.message
+          ? error.message
+          : "Something went wrong while creating the organization.";
+      toast.error("Create organization failed", {
+        description: `"${variables?.name ?? "Organization"}" could not be added. ${message}`,
       });
     },
   });

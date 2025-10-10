@@ -5,6 +5,7 @@ import { RouterProvider, createRouter } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { Toaster } from "@/components/ui/sonner";
 
 // Import the generated route tree
 import { routeTree } from "./routeTree.gen";
@@ -29,6 +30,7 @@ if (!rootElement.innerHTML) {
     <StrictMode>
       <QueryClientProvider client={queryClient}>
         <RouterProvider router={router} />
+        <Toaster position="top-center" richColors />
         <TanStackRouterDevtools router={router} />
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
