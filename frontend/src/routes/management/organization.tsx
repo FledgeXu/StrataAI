@@ -17,6 +17,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchAllOrganizations } from "@/api";
 import { Sheet, SheetTrigger } from "@/components/ui/sheet";
 import { CreateOrganizationSheet } from "@/routes/management/components/CreateOrganizationSheet";
+import { QUERY_KEYS } from "@/types/queryKeys";
 
 export const Route = createFileRoute("/management/organization")({
   component: RouteComponent,
@@ -62,7 +63,7 @@ export function OrganizationSearchHeader<TData>(table: TanstackTable<TData>) {
 
 function RouteComponent() {
   const { data } = useQuery({
-    queryKey: ["fetchAllOrganizations"],
+    queryKey: [QUERY_KEYS.FETCH_ALL_ORGANIZATIONS],
     queryFn: fetchAllOrganizations,
   });
 

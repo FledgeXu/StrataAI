@@ -32,6 +32,7 @@ import {
 import { toast } from "sonner";
 import { createOrganization } from "@/api";
 import type { OrganizationCreateInput } from "@/types/organization";
+import { QUERY_KEYS } from "@/types/queryKeys";
 
 const organizationKinds = ["client", "vendor", "internal"] as const;
 
@@ -58,8 +59,7 @@ export function CreateOrganizationSheet() {
     onSuccess: (_, variables) => {
       form.reset();
       void queryClient.invalidateQueries({
-        // TODO: move all query keys to a file as constants.
-        queryKey: ["fetchAllOrganizations"],
+        queryKey: [QUERY_KEYS.FETCH_ALL_ORGANIZATIONS],
       });
       toast.success("Organization created", {
         description: `"${variables.name}" was added successfully.`,
