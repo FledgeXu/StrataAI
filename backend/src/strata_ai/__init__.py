@@ -1,14 +1,17 @@
 from dotenv import load_dotenv
-from fastapi import APIRouter, FastAPI
+from fastapi import APIRouter, FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import ORJSONResponse
 
 from strata_ai.api.v1 import auth, organizations
 from strata_ai.core.config import Config
+from strata_ai.middlewares.exception_handler import http_exception_handler
 
 load_dotenv()
 
 app = FastAPI(default_response_class=ORJSONResponse)
+
+app.exception_handler(HTTPException)(http_exception_handler)
 
 app.add_middleware(
     CORSMiddleware,
