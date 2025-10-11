@@ -5,6 +5,7 @@ import {
 import { Ellipsis } from "lucide-react";
 import {
   createColumnHelper,
+  type ColumnDef,
   type Table as TanstackTable,
 } from "@tanstack/react-table";
 import { SectionHeader } from "@/components/features/SectionHeader";
@@ -32,7 +33,7 @@ export const Route = createFileRoute("/management/organization")({
 
 const columnHelper = createColumnHelper<Organization>();
 
-const columns = [
+const columns: ColumnDef<Organization>[] = [
   {
     accessorKey: "name",
     header: "Name",
@@ -85,7 +86,7 @@ const columns = [
     },
     size: 100,
   }),
-] as const;
+] as Array<ColumnDef<Organization, unknown>>;
 
 export function OrganizationSearchHeader<TData>(table: TanstackTable<TData>) {
   return (
