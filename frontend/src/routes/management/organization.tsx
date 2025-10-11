@@ -2,13 +2,13 @@ import {
   DataTable,
   PagingDataTableFooter,
 } from "@/components/features/DataTable";
+import { Ellipsis } from "lucide-react";
 import {
   createColumnHelper,
   type Table as TanstackTable,
 } from "@tanstack/react-table";
 import { SectionHeader } from "@/components/features/SectionHeader";
 import { createFileRoute } from "@tanstack/react-router";
-import { type ColumnDef } from "@tanstack/react-table";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { PlusIcon } from "lucide-react";
@@ -18,6 +18,13 @@ import { fetchAllOrganizations } from "@/api";
 import { Sheet, SheetTrigger } from "@/components/ui/sheet";
 import { CreateOrganizationSheet } from "@/routes/management/components/CreateOrganizationSheet";
 import { QUERY_KEYS } from "@/types/queryKeys";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export const Route = createFileRoute("/management/organization")({
   component: RouteComponent,
@@ -49,6 +56,28 @@ const columns = [
   columnHelper.accessor("updatedAt", {
     header: "Update At",
     cell: (info) => info.getValue().toLocaleDateString(),
+  }),
+  columnHelper.display({
+    id: "actions",
+    cell: (info) => {
+      const row = info.row.original;
+      return (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" onClick={() => console.log(row)}>
+              <Ellipsis />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuGroup>
+              <DropdownMenuItem>Active</DropdownMenuItem>
+              <DropdownMenuItem>Update</DropdownMenuItem>
+            </DropdownMenuGroup>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      );
+    },
+    size: 100,
   }),
 ] as const;
 
