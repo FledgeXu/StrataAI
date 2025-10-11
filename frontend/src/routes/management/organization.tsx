@@ -36,26 +36,32 @@ const columns = [
   {
     accessorKey: "name",
     header: "Name",
+    size: 240,
   },
   {
     accessorKey: "kind",
     header: "Kind",
+    size: 140,
   },
   {
     accessorKey: "industry",
     header: "Industry",
+    size: 200,
   },
   {
     accessorKey: "isActive",
     header: "isActive",
+    size: 120,
   },
   columnHelper.accessor("createdAt", {
     header: "Created At",
     cell: (info) => info.getValue().toLocaleDateString(),
+    size: 160,
   }),
   columnHelper.accessor("updatedAt", {
     header: "Update At",
     cell: (info) => info.getValue().toLocaleDateString(),
+    size: 160,
   }),
   columnHelper.display({
     id: "actions",
