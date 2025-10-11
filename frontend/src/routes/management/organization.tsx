@@ -118,7 +118,7 @@ function RouteComponent() {
   return (
     <Sheet>
       <CreateOrganizationSheet />
-      <div className="space-y-6 m-4">
+      <div className="space-y-6">
         <SectionHeader
           title="Organization management"
           description="Manage customer tenants, subscription plans, and integration access here."
