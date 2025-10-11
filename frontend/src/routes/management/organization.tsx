@@ -25,19 +25,32 @@ export const Route = createFileRoute("/management/organization")({
 
 const columnHelper = createColumnHelper<Organization>();
 
-const columns: ColumnDef<Organization>[] = [
+const columns = [
   {
     accessorKey: "name",
     header: "Name",
   },
   {
-    accessorKey: "createdAt",
-    header: "createdAt",
-    meta: {
-      widthClass: "text-center",
-    },
+    accessorKey: "kind",
+    header: "Kind",
   },
-];
+  {
+    accessorKey: "industry",
+    header: "Industry",
+  },
+  {
+    accessorKey: "isActive",
+    header: "isActive",
+  },
+  columnHelper.accessor("createdAt", {
+    header: "Created At",
+    cell: (info) => info.getValue().toLocaleDateString(),
+  }),
+  columnHelper.accessor("updatedAt", {
+    header: "Update At",
+    cell: (info) => info.getValue().toLocaleDateString(),
+  }),
+] as const;
 
 export function OrganizationSearchHeader<TData>(table: TanstackTable<TData>) {
   return (
