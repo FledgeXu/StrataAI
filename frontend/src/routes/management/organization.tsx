@@ -31,15 +31,11 @@ const columnHelper = createColumnHelper<Organization>();
 const columns: ColumnDef<Organization>[] = [
   {
     accessorKey: "name",
-    header: ({ column }) => (
-      <SortableColumnHeader column={column} title="Name" />
-    ),
+    header: "Name",
     size: 240,
   },
   columnHelper.accessor("kind", {
-    header: ({ column }) => (
-      <SortableColumnHeader column={column} title="Kind" />
-    ),
+    header: "Kind",
     cell: (info) => {
       const kind = info.getValue();
       const color = kindColorMap[kind];
@@ -49,15 +45,11 @@ const columns: ColumnDef<Organization>[] = [
   }),
   {
     accessorKey: "industry",
-    header: ({ column }) => (
-      <SortableColumnHeader column={column} title="Industry" />
-    ),
+    header: "Industry",
     size: 200,
   },
   columnHelper.accessor("isActive", {
-    header: ({ column }) => (
-      <SortableColumnHeader column={column} title="Status" />
-    ),
+    header: "Status",
     cell: (info) => {
       const isActive = info.getValue();
       return (
@@ -72,14 +64,18 @@ const columns: ColumnDef<Organization>[] = [
     header: ({ column }) => (
       <SortableColumnHeader column={column} title="Created At" />
     ),
-    cell: (info) => info.getValue().toLocaleDateString(),
+    cell: (info) => (
+      <p className="text-center">{info.getValue().toLocaleDateString()} </p>
+    ),
     size: 160,
   }),
   columnHelper.accessor("updatedAt", {
     header: ({ column }) => (
       <SortableColumnHeader column={column} title="Update At" />
     ),
-    cell: (info) => info.getValue().toLocaleDateString(),
+    cell: (info) => (
+      <p className="text-center">{info.getValue().toLocaleDateString()} </p>
+    ),
     size: 160,
   }),
   columnHelper.display({
