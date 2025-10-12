@@ -17,7 +17,7 @@ import { QUERY_KEYS } from "@/types/queryKeys";
 import {
   CreateOrganizationForm,
   type CreateOrganizationFormValues,
-} from "@/routes/management/components/CreateOrganizationForm";
+} from "@/components/features/management/CreateOrganizationForm";
 
 interface UpdateOrganizationDialogProps {
   organization: Organization;

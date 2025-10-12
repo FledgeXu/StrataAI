@@ -9,10 +9,10 @@ import type { Organization, OrganizationKind } from "@/types/organization";
 import { useQuery } from "@tanstack/react-query";
 import { fetchAllOrganizations } from "@/api";
 import { Sheet } from "@/components/ui/sheet";
-import { CreateOrganizationSheet } from "@/routes/management/components/CreateOrganizationSheet";
+import { CreateOrganizationSheet } from "@/components/features/management/CreateOrganizationSheet";
 import { QUERY_KEYS } from "@/types/queryKeys";
-import { OrganizationSearchHeader } from "./components/OrganizationSearchHeader";
-import { OrganizationActionCell } from "./components/OrganizationActionCell";
+import { OrganizationSearchHeader } from "@/components/features/management/OrganizationSearchHeader";
+import { OrganizationActionCell } from "@/components/features/management/OrganizationActionCell";
 import { Badge } from "@/components/ui/badge";
 
 export const Route = createFileRoute("/management/organization")({

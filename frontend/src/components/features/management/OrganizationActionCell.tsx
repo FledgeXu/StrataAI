@@ -9,7 +9,7 @@ import {
 import { Button } from "@/components/ui/button";
 import type { Organization } from "@/types/organization";
 import { Ellipsis } from "lucide-react";
-import { UpdateOrganizationDialog } from "@/routes/management/components/UpdateOrganizationDialog";
+import { UpdateOrganizationDialog } from "@/components/features/management/UpdateOrganizationDialog";
 
 export function OrganizationActionCell(organization: Organization) {
   const [isUpdateDialogOpen, setIsUpdateDialogOpen] = useState(false);
