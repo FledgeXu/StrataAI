@@ -60,11 +60,21 @@ export function CreateOrganizationSheet() {
 
       <CreateOrganizationForm
         onSubmit={onSubmit}
-        renderActions={() => (
+        renderActions={(form) => (
           <SheetFooter>
-            <Button type="submit">Save changes</Button>
+            <Button
+              type="submit"
+              disabled={
+                form.formState.isSubmitting ||
+                createOrganizationMutation.isPending
+              }
+            >
+              Save changes
+            </Button>
             <SheetClose asChild>
-              <Button variant="outline">Close</Button>
+              <Button variant="outline" disabled={form.formState.isSubmitting}>
+                Close
+              </Button>
             </SheetClose>
           </SheetFooter>
         )}
