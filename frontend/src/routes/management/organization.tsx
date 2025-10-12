@@ -14,6 +14,7 @@ import { QUERY_KEYS } from "@/types/queryKeys";
 import { OrganizationSearchHeader } from "@/components/features/management/OrganizationSearchHeader";
 import { OrganizationActionCell } from "@/components/features/management/OrganizationActionCell";
 import { Badge } from "@/components/ui/badge";
+import { SortableColumnHeader } from "@/components/features/SortableColumnHeader";
 
 export const Route = createFileRoute("/management/organization")({
   component: RouteComponent,
@@ -30,11 +31,15 @@ const columnHelper = createColumnHelper<Organization>();
 const columns: ColumnDef<Organization>[] = [
   {
     accessorKey: "name",
-    header: "Name",
+    header: ({ column }) => (
+      <SortableColumnHeader column={column} title="Name" />
+    ),
     size: 240,
   },
   columnHelper.accessor("kind", {
-    header: "Kind",
+    header: ({ column }) => (
+      <SortableColumnHeader column={column} title="Kind" />
+    ),
     cell: (info) => {
       const kind = info.getValue();
       const color = kindColorMap[kind];
@@ -44,11 +49,15 @@ const columns: ColumnDef<Organization>[] = [
   }),
   {
     accessorKey: "industry",
-    header: "Industry",
+    header: ({ column }) => (
+      <SortableColumnHeader column={column} title="Industry" />
+    ),
     size: 200,
   },
   columnHelper.accessor("isActive", {
-    header: "Status",
+    header: ({ column }) => (
+      <SortableColumnHeader column={column} title="Status" />
+    ),
     cell: (info) => {
       const isActive = info.getValue();
       return (
@@ -60,18 +69,23 @@ const columns: ColumnDef<Organization>[] = [
     size: 120,
   }),
   columnHelper.accessor("createdAt", {
-    header: "Created At",
+    header: ({ column }) => (
+      <SortableColumnHeader column={column} title="Created At" />
+    ),
     cell: (info) => info.getValue().toLocaleDateString(),
     size: 160,
   }),
   columnHelper.accessor("updatedAt", {
-    header: "Update At",
+    header: ({ column }) => (
+      <SortableColumnHeader column={column} title="Update At" />
+    ),
     cell: (info) => info.getValue().toLocaleDateString(),
     size: 160,
   }),
   columnHelper.display({
     id: "actions",
     cell: (info) => OrganizationActionCell(info.row.original),
+    enableSorting: false,
     size: 100,
   }),
 ] as Array<ColumnDef<Organization, unknown>>;
