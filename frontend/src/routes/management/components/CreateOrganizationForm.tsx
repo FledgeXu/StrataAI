@@ -33,19 +33,21 @@ export type CreateOrganizationFormValues = z.infer<typeof formSchema>;
 interface CreateOrganizationFormProps {
   onSubmit: (values: CreateOrganizationFormValues) => Promise<unknown> | void;
   renderActions?: (
-    form: UseFormReturn<CreateOrganizationFormValues>,
+    form: UseFormReturn<CreateOrganizationFormValues>
   ) => ReactNode;
   resetOnSubmitSuccess?: boolean;
+  defaultValues?: CreateOrganizationFormValues;
 }
 
 export function CreateOrganizationForm({
   onSubmit,
   renderActions,
   resetOnSubmitSuccess = true,
+  defaultValues,
 }: CreateOrganizationFormProps) {
   const form = useForm<CreateOrganizationFormValues>({
     resolver: zodResolver(formSchema),
-    values: {
+    defaultValues: defaultValues ?? {
       name: "",
       kind: organizationKinds[0],
       industry: "",
