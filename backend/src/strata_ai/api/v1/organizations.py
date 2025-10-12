@@ -96,7 +96,9 @@ async def update_organization(
             await service.update(
                 organization_id,
                 **updates,
-            )
+            ),
+            "Organization with the same name already exists",
+            status.HTTP_409_CONFLICT,
         )
     )
 

@@ -24,6 +24,7 @@ class OrganizationRepository(BaseRepository):
             is_active=is_active,
         )
         self._session.add(organization)
+
         await self._session.flush()
         await self._session.refresh(organization)
         return organization
@@ -44,37 +45,34 @@ class OrganizationRepository(BaseRepository):
         self,
         organization_id: uuid.UUID,
         *,
-        name: str | None = None,
-        kind: OrganizationKind | None = None,
-        industry: str | None = None,
+        name: str,
+        kind: OrganizationKind,
+        industry: str,
     ) -> Maybe[Organization]:
-        async with self._session.begin():
-            maybe_organization = await self.get(organization_id)
-            organization = maybe_organization.value_or(None)
-            if organization is None:
-                return Nothing
+        maybe_organization = await self.get(organization_id)
+        organization = maybe_organization.value_or(None)
+        if organization is None:
+            return Nothing
 
-            if name is not None:
-                organization.name = name
-            if kind is not None:
-                organization.kind = kind
-            if industry is not None:
-                organization.industry = industry
+        organization.name = name
+        organization.kind = kind
+        organization.industry = industry
 
+        await self._session.flush()
         await self._session.refresh(organization)
         return Some(organization)
 
     async def set_active(
         self, organization_id: uuid.UUID, is_active: bool
     ) -> Maybe[Organization]:
-        async with self._session.begin():
-            maybe_organization = await self.get(organization_id)
-            organization = maybe_organization.value_or(None)
-            if organization is None:
-                return Nothing
+        maybe_organization = await self.get(organization_id)
+        organization = maybe_organization.value_or(None)
+        if organization is None:
+            return Nothing
 
-            organization.is_active = is_active
+        organization.is_active = is_active
 
+        await self._session.flush()
         await self._session.refresh(organization)
         return Some(organization)
 

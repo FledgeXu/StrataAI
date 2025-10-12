@@ -40,10 +40,12 @@ class OrganizationService:
         self,
         organization_id: uuid.UUID,
         *,
-        name: str | None = None,
-        kind: OrganizationKind | None = None,
-        industry: str | None = None,
+        name: str,
+        kind: OrganizationKind,
+        industry: str,
     ) -> Maybe[Organization]:
+        if await self.is_name_taken(name):
+            return Nothing
         return await self._repo.update(
             organization_id,
             name=name,
