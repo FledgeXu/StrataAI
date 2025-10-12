@@ -44,14 +44,23 @@ class OrganizationService:
         kind: OrganizationKind,
         industry: str,
     ) -> Maybe[Organization]:
-        if await self.is_name_taken(name):
-            return Nothing
-        return await self._repo.update(
-            organization_id,
-            name=name,
-            kind=kind,
-            industry=industry,
-        )
+        origin = await self.get(organization_id)
+        match origin:
+            case Nothing.empty:
+                return Nothing
+            # If the name is different, we must check whether it already exists.
+            case Some(org) if org.name != name and await self.is_name_taken(name):
+                return Nothing
+            # If name is same, we just update it normally.
+            case Some(org):
+                return await self._repo.update(
+                    organization_id,
+                    name=name,
+                    kind=kind,
+                    industry=industry,
+                )
+            case _:
+                return Nothing
 
     async def set_active(
         self, organization_id: uuid.UUID, is_active: bool
