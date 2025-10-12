@@ -17,12 +17,12 @@ export async function unwrap<T>(
 ): Promise<T> {
   try {
     const { data } = await responsePromise;
-    return data.data
+    return data.data;
   } catch (err) {
     if (axios.isAxiosError(err) && err.response) {
-      const msg = err.response.data?.message ?? err.response.statusText
-      throw new ApiError(msg, err.response.status)
+      const msg = err.response.data?.message ?? err.response.statusText;
+      throw new ApiError(msg, err.response.status);
     }
-    throw err
+    throw err;
   }
 }
