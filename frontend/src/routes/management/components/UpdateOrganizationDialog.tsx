@@ -1,5 +1,4 @@
-import type { ReactNode } from "react";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import {
   Dialog,
   DialogClose,
@@ -8,7 +7,6 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
@@ -23,14 +21,15 @@ import {
 
 interface UpdateOrganizationDialogProps {
   organization: Organization;
-  children: ReactNode;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
 }
 
 export function UpdateOrganizationDialog({
   organization,
-  children,
+  open,
+  onOpenChange,
 }: UpdateOrganizationDialogProps) {
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const queryClient = useQueryClient();
 
   const defaultValues = useMemo(
@@ -39,7 +38,7 @@ export function UpdateOrganizationDialog({
       kind: organization.kind,
       industry: organization.industry,
     }),
-    [organization.name, organization.kind, organization.industry]
+    [organization.name, organization.kind, organization.industry],
   );
 
   const updateOrganizationMutation = useMutation({
@@ -51,7 +50,7 @@ export function UpdateOrganizationDialog({
       toast.success("Organization updated", {
         description: `"${variables.name ?? organization.name}" was updated successfully.`,
       });
-      setIsDialogOpen(false);
+      onOpenChange(false);
     },
     onError: (error, variables) => {
       const message =
@@ -74,12 +73,11 @@ export function UpdateOrganizationDialog({
 
   return (
     <Dialog
-      open={isDialogOpen}
-      onOpenChange={(open) => {
-        setIsDialogOpen(open);
+      open={open}
+      onOpenChange={(nextOpen) => {
+        onOpenChange(nextOpen);
       }}
     >
-      <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Update organization</DialogTitle>

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,21 +12,30 @@ import { Ellipsis } from "lucide-react";
 import { UpdateOrganizationDialog } from "@/routes/management/components/UpdateOrganizationDialog";
 
 export function OrganizationActionCell(organization: Organization) {
+  const [isUpdateDialogOpen, setIsUpdateDialogOpen] = useState(false);
+
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost">
-          <Ellipsis />
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuGroup>
-          <DropdownMenuItem>Active</DropdownMenuItem>
-          <UpdateOrganizationDialog organization={organization}>
-            <DropdownMenuItem>Update</DropdownMenuItem>
-          </UpdateOrganizationDialog>
-        </DropdownMenuGroup>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="ghost">
+            <Ellipsis />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          <DropdownMenuGroup>
+            <DropdownMenuItem>Active</DropdownMenuItem>
+            <DropdownMenuItem onSelect={() => setIsUpdateDialogOpen(true)}>
+              Update
+            </DropdownMenuItem>
+          </DropdownMenuGroup>
+        </DropdownMenuContent>
+      </DropdownMenu>
+      <UpdateOrganizationDialog
+        organization={organization}
+        open={isUpdateDialogOpen}
+        onOpenChange={setIsUpdateDialogOpen}
+      />
+    </>
   );
 }

@@ -33,7 +33,7 @@ export type CreateOrganizationFormValues = z.infer<typeof formSchema>;
 interface CreateOrganizationFormProps {
   onSubmit: (values: CreateOrganizationFormValues) => Promise<unknown> | void;
   renderActions?: (
-    form: UseFormReturn<CreateOrganizationFormValues>
+    form: UseFormReturn<CreateOrganizationFormValues>,
   ) => ReactNode;
   resetOnSubmitSuccess?: boolean;
   defaultValues?: CreateOrganizationFormValues;
