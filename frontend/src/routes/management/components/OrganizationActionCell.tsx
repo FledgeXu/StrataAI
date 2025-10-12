@@ -28,7 +28,6 @@ import {
 } from "./CreateOrganizationForm";
 
 export function OrganizationActionCell(organization: Organization) {
-  const [menuOpen, setMenuOpen] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const queryClient = useQueryClient();
 
@@ -73,7 +72,7 @@ export function OrganizationActionCell(organization: Organization) {
 
   return (
     <>
-      <DropdownMenu open={menuOpen} onOpenChange={setMenuOpen}>
+      <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost">
             <Ellipsis />
@@ -82,13 +81,7 @@ export function OrganizationActionCell(organization: Organization) {
         <DropdownMenuContent align="end">
           <DropdownMenuGroup>
             <DropdownMenuItem>Active</DropdownMenuItem>
-            <DropdownMenuItem
-              onSelect={(event) => {
-                event.preventDefault();
-                setMenuOpen(false);
-                setIsDialogOpen(true);
-              }}
-            >
+            <DropdownMenuItem onSelect={() => setIsDialogOpen(true)}>
               Update
             </DropdownMenuItem>
           </DropdownMenuGroup>
@@ -99,9 +92,6 @@ export function OrganizationActionCell(organization: Organization) {
         open={isDialogOpen}
         onOpenChange={(open) => {
           setIsDialogOpen(open);
-          if (!open) {
-            setMenuOpen(false);
-          }
         }}
       >
         <DialogContent>
