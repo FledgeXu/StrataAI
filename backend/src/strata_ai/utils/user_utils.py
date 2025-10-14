@@ -3,7 +3,7 @@ from fastapi_users.exceptions import UserAlreadyExists
 from strata_ai.db.engine import AsyncSessionLocal
 from strata_ai.repos.user_repo import UserRepository
 from strata_ai.schemas.user import UserCreate
-from strata_ai.services.user_service import UserManager
+from strata_ai.services.user_service import UserService
 
 
 async def create_user(
@@ -16,7 +16,7 @@ async def create_user(
 ) -> None:
     async with AsyncSessionLocal() as session:
         repo = UserRepository(session)
-        manager = UserManager(repo.get_impl())
+        manager = UserService(repo)
 
         try:
             user = await manager.create(
