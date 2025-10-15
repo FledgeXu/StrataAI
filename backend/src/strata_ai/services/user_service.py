@@ -28,11 +28,14 @@ class UserService(UUIDIDMixin, BaseUserManager[User, uuid.UUID]):
     async def list(self) -> Sequence[User]:
         return await self._repo.list()
 
+    async def get_maybe(self, user_id: uuid.UUID) -> Maybe[User]:
+        return Maybe.from_optional(await super().get(user_id))
+
     async def activate(self, user_id: uuid.UUID) -> Maybe[User]:
         return await self._repo.activate(user_id)
 
     async def deactivate(self, user_id: uuid.UUID) -> Maybe[User]:
-        return await self._repo.deactivate(user_id)
+       return await self._repo.deactivate(user_id)
 
     async def on_after_register(self, user: User, request: Optional[Request] = None):
         print(f"User {user.id} has registered.")

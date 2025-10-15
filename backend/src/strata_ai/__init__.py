@@ -3,7 +3,7 @@ from fastapi import APIRouter, FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import ORJSONResponse
 
-from strata_ai.api.v1 import auth, organizations
+from strata_ai.api.v1 import auth, organizations, users
 from strata_ai.core.config import Config
 from strata_ai.middlewares.exception_handler import http_exception_handler
 
@@ -24,5 +24,6 @@ app.add_middleware(
 v1_router = APIRouter(prefix="/v1")
 v1_router.include_router(auth.router)
 v1_router.include_router(organizations.router)
+v1_router.include_router(users.router)
 
 app.include_router(v1_router)
