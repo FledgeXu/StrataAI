@@ -1,3 +1,3 @@
-from . import organizations
+from . import organizations, users
 
-__all__ = ["organizations"]
+__all__ = ["organizations", "users"]

@@ -14,17 +14,6 @@ class UserService:
     def __init__(self, repo: UserRepository):
         self._repo = repo
 
-    async def create(self, *, name: str, is_active: bool = True) -> Maybe[User]:
-        if await self.is_name_taken(name):
-            return Nothing
-
-        user = User(name=name, is_active=is_active)
-        self._repo._session.add(user)
-
-        await self._repo._session.flush()
-        await self._repo._session.refresh(user)
-        return Some(user)
-
     async def get(self, user_id: uuid.UUID) -> Maybe[User]:
         return await self._repo.get(user_id)
 

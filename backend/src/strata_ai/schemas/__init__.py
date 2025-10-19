@@ -3,9 +3,11 @@ from .organization import (
     OrganizationRead,
     OrganizationUpdate,
 )
+from .user import UserRead
 
 __all__ = [
     "OrganizationCreate",
     "OrganizationRead",
     "OrganizationUpdate",
+    "UserRead",
 ]
