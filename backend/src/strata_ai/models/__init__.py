@@ -1,7 +1,11 @@
 from strata_ai.models.base import Base
-from strata_ai.models.organizations import Organization
+from strata_ai.models.organization import Organization, OrganizationKind
+from strata_ai.models.user import User, UserIdentity
 
 __all__ = [
-    "Organization",
     "Base",
+    "User",
+    "UserIdentity",
+    "Organization",
+    "OrganizationKind",
 ]

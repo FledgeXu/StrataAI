@@ -6,7 +6,7 @@ from fastapi import Depends
 from returns.maybe import Maybe, Nothing, Some
 
 from strata_ai.db.engine import get_async_session
-from strata_ai.models.organizations import Organization, OrganizationKind
+from strata_ai.models import Organization, OrganizationKind
 from strata_ai.repos.org_repo import OrganizationRepository
 
 

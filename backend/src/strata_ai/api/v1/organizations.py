@@ -3,7 +3,7 @@ import uuid
 from fastapi import APIRouter, Depends, HTTPException, status
 from returns.maybe import Maybe
 
-from strata_ai.models.organizations import Organization
+from strata_ai.models import Organization
 from strata_ai.schemas.organization import (
     OrganizationCreate,
     OrganizationRead,

@@ -4,7 +4,7 @@ from typing import Sequence
 from returns.maybe import Maybe, Nothing, Some
 from sqlalchemy import select
 
-from strata_ai.models.organizations import Organization, OrganizationKind
+from strata_ai.models import Organization, OrganizationKind
 from strata_ai.repos.base_repo import BaseRepository
 
 
