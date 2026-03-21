@@ -8,6 +8,7 @@ For any updates to AGENTS.md, only the sections under Maintain by Robot should b
 ### Package Management
 - All new packages must be installed through the package manager, and the newest feasible version should be preferred whenever possible; do not manually pin fixed versions unless there is a clear constraint-based reason.
 - The impact scope of new dependencies should be kept as small as possible, and their necessity should be confirmed before introducing them.
+- All backend APIs must be verified with curl to ensure the request chain is complete, runs correctly, and can be successfully invoked.ll 
 
 ## Maintain by Robot
 - Understand the existing implementation before modifying code, and avoid refactoring based on guesswork.
