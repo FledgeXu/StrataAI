@@ -7,8 +7,7 @@ import org.mybatis.spring.annotation.MapperScan;
 
 @SpringBootApplication
 @ConfigurationPropertiesScan
-// The authentication bounded context lives in a separate Gradle module and is wired in here.
-@MapperScan("com.otakusaikou.strata.authentication.infrastructure.persistence.mapper")
+@MapperScan("com.otakusaikou.strata")
 public class StrataApplication {
 
 	public static void main(String[] args) {
