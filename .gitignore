@@ -1,1 +1,6 @@
 impl-docs/*
+
+# Workspace metadata
+.DS_Store
+.idea/
+.vscode/

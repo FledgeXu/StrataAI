@@ -1,3 +1,15 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+dist-ssr/
+coverage/
+
+# Test artifacts
+playwright-report/
+test-results/
+
 # Logs
 logs
 *.log
@@ -7,15 +19,13 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
+# Local environment
 *.local
 
-# Editor directories and files
+# Editor metadata
 .vscode/*
 !.vscode/extensions.json
-.idea
+.idea/
 .DS_Store
 *.suo
 *.ntvs*
